@@ -1,8 +1,13 @@
 import React from 'react'
+import ResultsList from './ResultsList';
 
-const page = () => {
+const page = async() => {
+    const res=await fetch('http://localhost:3000/api/search');
+    const data=await res.json();
   return (
-    <div>page1</div>
+    <>
+       <ResultsList data={data} />
+    </>
   )
 }
 
