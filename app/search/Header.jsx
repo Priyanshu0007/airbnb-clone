@@ -40,8 +40,25 @@ const Header = () => {
           "border-b-8": isExpanded,
         }
       );
-    
+    const modalClasses=clsx(
+      "absolute",
+      "top-0",
+      "left-0",
+      "w-full",
+      "h-full",
+      "z-40",
+      "bg-black",
+      "bg-opacity-50",
+      "transition-opacity duration-300 ease-in-out",
+      {
+        hidden: !isExpanded,
+        block: isExpanded,
+        "opacity-0": !isExpanded,
+        "opacity-100": isExpanded,
+      }
+    )
   return (
+    <>
     <header className='flex border-b bg-white z-50 fixed w-full'>
         <div className={headerContainerClasses}>
         <div className="text-red-500">Airbnd</div>
@@ -56,6 +73,8 @@ const Header = () => {
         <div>user</div>
         </div>
     </header>
+    <div className={modalClasses}></div>
+    </>
   )
 }
 

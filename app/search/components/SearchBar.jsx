@@ -6,19 +6,20 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRangePicker } from "react-date-range";
 import Link from 'next/link';
 import {MagnifyingGlassIcon} from '@heroicons/react/24/solid'
+import { useSearchStore } from '@/store';
 
 const SearchBar = () => {
     const[isSearchFocused,setIsSearchFocused]=useState(false);
-    const[startDate,setStartDate]=useState(new Date());
-    const [endDate,setEndDate]=useState(null);
+    const [locationInput,startDate,endDate]=useSearchStore((state)=>[state.location,state.dates[0],state.dates[1]]);
+    const handleLocationUpdate = (e) => {
+      useSearchStore.setState({ location: e.target.value });
+    };
+  
     const handleSelect = (ranges) => {
-        if (ranges.selection.startDate !== startDate) {
-          setStartDate(ranges.selection.startDate);
-        }
-        if (ranges.selection.endDate !== endDate) {
-          setEndDate(ranges.selection.endDate);
-        }
-      };
+      useSearchStore.setState({
+        dates: [ranges.selection.startDate, ranges.selection.endDate],
+      });
+    };  
     
     const selectionRange = {
         startDate: startDate,
@@ -35,9 +36,11 @@ const SearchBar = () => {
         <p className="font-bold">Where</p>
         {isSearchFocused ? (
           <input
-            type="text"
-            placeholder="Search destinations"
-            className="text-slate-800 bg-transparent border-none outline-none"
+          type="text"
+          placeholder="Search destinations"
+          onChange={handleLocationUpdate}
+          value={locationInput}
+          className="text-slate-800 bg-transparent border-none outline-none"
           />
         ) : (
           <p className="text-slate-600">Search destinations</p>
