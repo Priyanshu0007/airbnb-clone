@@ -13,13 +13,9 @@ const Counter = ({label}) => {
     <div className='flex justify-between'>
         <p className='font-bold'>{label}</p>
         <div className='flex items-center gap-x-1'>
-            {
-                guests>0 &&(
-                    <CountIcon icon="-" onClick={decreaseGuests} />
-                )
-            }
+            { guests>0 &&(<CountIcon icon="-" onClick={decreaseGuests} />) }
             <span>{guests}</span>
-                <CountIcon icon="+" onClick={increaseGuests} />
+            <CountIcon icon="+" onClick={increaseGuests} />
         </div>
     </div>
   )
